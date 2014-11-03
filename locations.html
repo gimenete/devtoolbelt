@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dev Toolbelt | Strings</title>
+
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/jumbotron.css" rel="stylesheet">
+    <!--
+    <link href="dist/css/select2.css" rel="stylesheet">
+    <link href="dist/css/select2-bootstrap.css" rel="stylesheet">
+    <link href="dist/css/sweet-alert.css" rel="stylesheet">
+    -->
+    <style>
+      textarea {
+        font-family: monospace;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right" role="tablist">
+          <li role="presentation"><a href="./index.html">Home</a></li>
+          <li role="presentation"><a href="./strings.html">Strings</a></li>
+          <li role="presentation"><a href="./dates.html">Dates</a></li>
+          <li role="presentation" class="active"><a href="./locations.html">Locations</a></li>
+          <li role="presentation"><a href="./links.html">Links</a></li>
+        </ul>
+        <h3 class="text-muted">Dev Toolbelt</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#geocoding" aria-expanded="false" aria-controls="geocoding">
+          Geocoding
+        </a>
+      </h4>
+    </div>
+    <div id="geocoding" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Address</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="geocoding-input" placeholder="Write an address">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Results</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="geocoding-output" style="height: 200px" readonly></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#zip-lookup" aria-expanded="false" aria-controls="zip-lookup">
+          US Zip code lookup
+        </a>
+      </h4>
+    </div>
+    <div id="zip-lookup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Zip code</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="zip-lookup-input" placeholder="05401">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Info</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="zip-lookup-output" style="height: 100px" readonly></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Created by <a href="http://twitter.com/gimenete">@gimenete</a></p>
+      </div>
+
+    </div>
+
+    <script src="dist/js/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <!-- <script src="dist/js/sweet-alert.min.js"></script> -->
+    <!-- <script src="dist/js/select2.min.js"></script> -->
+    <!-- <script src="dist/js/levenshtein.js"></script> -->
+    <script src="./dist/js/uszip.js"></script>
+    <script>
+      // geocoding
+      $('#geocoding-input').on('input', function() {
+        var val = $(this).val()
+        $.ajax({
+          url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+encodeURIComponent(val),
+          success: function(data) {
+            if (data.results) {
+              var output = ''
+              data.results.forEach(function(result) {
+                output += result.formatted_address
+                output += '\n'
+                output += result.geometry.location.lat+', '+result.geometry.location.lng
+                output += '\n\n'
+              })
+              $('#geocoding-output').val(output)
+            } else {
+              $('#geocoding-output').val(JSON.stringify(data, null, 2))
+            }
+          },
+          error: function(err) {
+            $('#geocoding-output').val(err.message)
+          }
+        })
+      })
+
+      // zip code lookup
+      $('#zip-lookup-input').on('input', function() {
+        var val = $(this).val()
+        var info = window.zipcodes[val]
+        if (info) {
+          var arr = []
+          arr.push('Place name: '+info.place)
+          arr.push('State: '+info.state)
+          arr.push('Latitude: '+info.lat)
+          arr.push('Longitude: '+info.lon)
+          $('#zip-lookup-output').val(arr.join('\n'))
+        } else {
+          $('#zip-lookup-output').val('Zip code not found')
+        }
+      })
+
+    </script>
+  </body>
+</html>

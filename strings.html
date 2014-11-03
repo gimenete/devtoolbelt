@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dev Toolbelt | Strings</title>
+
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/jumbotron.css" rel="stylesheet">
+    <!--
+    <link href="dist/css/select2.css" rel="stylesheet">
+    <link href="dist/css/select2-bootstrap.css" rel="stylesheet">
+    <link href="dist/css/sweet-alert.css" rel="stylesheet">
+    -->
+    <style>
+      textarea {
+        font-family: monospace;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right" role="tablist">
+          <li role="presentation"><a href="./index.html">Home</a></li>
+          <li role="presentation" class="active"><a href="./strings.html">Strings</a></li>
+          <li role="presentation"><a href="./dates.html">Dates</a></li>
+          <li role="presentation"><a href="./locations.html">Locations</a></li>
+          <li role="presentation"><a href="./links.html">Links</a></li>
+        </ul>
+        <h3 class="text-muted">Dev Toolbelt</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#string-length" aria-expanded="false" aria-controls="string-length">
+          String length
+        </a>
+      </h4>
+    </div>
+    <div id="string-length" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="string-length-input" placeholder="Hello">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Length</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="string-length-output" placeholder="5" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#pretty-json" aria-expanded="false" aria-controls="pretty-json">
+          Pretty JSON
+        </a>
+      </h4>
+    </div>
+    <div id="pretty-json" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div>
+          <p>Input</p>
+          <textarea class="form-control" id="pretty-json-input" style="height: 200px" placeholder='{"message":"hello world", "error": "400"}'></textarea>
+        </div>
+        <div>
+          <p>Output</p>
+          <textarea class="form-control" id="pretty-json-output" style="height: 200px" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#html-escape" aria-expanded="false" aria-controls="html-escape">
+          HTML escape
+        </a>
+      </h4>
+    </div>
+    <div id="html-escape" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <div>
+          <p>Input</p>
+          <textarea class="form-control" id="html-escape-input" style="height: 200px" placeholder="&lt;p&gt;"></textarea>
+        </div>
+        <div>
+          <p>Output</p>
+          <textarea class="form-control" id="html-escape-output" style="height: 200px" placeholder="&amp;lt;p&amp;gt;" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#url-unescape" aria-expanded="false" aria-controls="url-unescape">
+          HTML unescape
+        </a>
+      </h4>
+    </div>
+    <div id="url-unescape" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <div>
+          <p>Input</p>
+          <textarea class="form-control" id="html-unescape-input" style="height: 200px" placeholder="&amp;lt;p&amp;gt;"></textarea>
+        </div>
+        <div>
+          <p>Output</p>
+          <textarea class="form-control" id="html-unescape-output" style="height: 200px" placeholder="&lt;p&gt;" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#html2jade" aria-expanded="false" aria-controls="html2jade">
+          HTML 2 Jade
+        </a>
+      </h4>
+    </div>
+    <div id="html2jade" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <div>
+          <p>Input</p>
+          <textarea class="form-control" id="html2jade-input" style="height: 200px" placeholder="&lt;p class=&quot;text-center&quot; id=&quot;foo&quot;&gt;hello world&lt;&#x2F;p&gt;"></textarea>
+        </div>
+        <div>
+          <p>Output</p>
+          <textarea class="form-control" id="html2jade-output" style="height: 200px" placeholder="p#foo.text-center hello world" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#html2markdown" aria-expanded="false" aria-controls="html2markdown">
+          HTML 2 Markdown
+        </a>
+      </h4>
+    </div>
+    <div id="html2markdown" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <div>
+          <p>Input</p>
+          <textarea class="form-control" id="html2markdown-input" style="height: 200px" placeholder="&lt;h1&gt;hello world&lt;&#x2F;h1&gt;"></textarea>
+        </div>
+        <div>
+          <p>Output</p>
+          <textarea class="form-control" id="html2markdown-output" style="height: 200px" placeholder="# Hello world" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#uri-encode" aria-expanded="false" aria-controls="uri-encode">
+          encodeURI
+        </a>
+      </h4>
+    </div>
+    <div id="uri-encode" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uri-encode-input" placeholder="http://example.com/foo bar.html">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uri-encode-output" placeholder="
+http://example.com/foo%20bar.html" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#uri-decode" aria-expanded="false" aria-controls="uri-decode">
+          decodeURI
+        </a>
+      </h4>
+    </div>
+    <div id="uri-decode" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uri-decode-input" placeholder="http://example.com/foo%20bar.html">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uri-decode-output" placeholder="http://example.com/foo bar.html" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#uri-component-encode" aria-expanded="false" aria-controls="uri-component-encode">
+          encodeURIComponent
+        </a>
+      </h4>
+    </div>
+    <div id="uri-component-encode" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uri-component-encode-input" placeholder="user@example.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uri-component-encode-output" placeholder="user%40example.com" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#uri-component-decode" aria-expanded="false" aria-controls="uri-component-decode">
+          decodeURIComponent
+        </a>
+      </h4>
+    </div>
+    <div id="uri-component-decode" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uri-component-decode-input" placeholder="user%40example.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uri-component-decode-output" placeholder="user@example.com" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#querystring-encode" aria-expanded="false" aria-controls="querystring-encode">
+          Querystring encode
+        </a>
+      </h4>
+    </div>
+    <div id="querystring-encode" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="querystring-encode-input" placeholder='{"message":"hello world", "error": "400"}'>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="querystring-encode-output" placeholder="message=hello%20world&amp;error=400" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#querystring-decode" aria-expanded="false" aria-controls="querystring-decode">
+          Querystring decode
+        </a>
+      </h4>
+    </div>
+    <div id="querystring-decode" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="querystring-decode-input" placeholder="message=hello%20world&amp;error=400">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="querystring-decode-output" placeholder='{"message":"hello world", "error": "400"}' readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#regex" aria-expanded="false" aria-controls="regex">
+          Regex
+        </a>
+      </h4>
+    </div>
+    <div id="regex" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Regular expression</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="regex-regex" placeholder="\d+">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Flags</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="regex-flags" placeholder="Any combination of: g i m y">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="regex-input" placeholder="The error code is 503" style="height: 200px"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Matches</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="regex-output" style="height: 200px" placeholder='[ "503" ]' readonly></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#unicode-escape" aria-expanded="false" aria-controls="unicode-escape">
+          Unicode escape
+        </a>
+      </h4>
+    </div>
+    <div id="unicode-escape" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div>
+          <p>Input</p>
+          <textarea class="form-control" id="unicode-escape-input" style="height: 200px" placeholder="みどりいろ"></textarea>
+        </div>
+        <div>
+          <p>Output</p>
+          <textarea class="form-control" id="unicode-escape-output" style="height: 200px" placeholder="\u307f\u3069\u308a\u3044\u308d" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#unicode-unescape" aria-expanded="false" aria-controls="unicode-unescape">
+          Unicode unescape
+        </a>
+      </h4>
+    </div>
+    <div id="unicode-unescape" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div>
+          <p>Input</p>
+          <textarea class="form-control" id="unicode-unescape-input" style="height: 200px" placeholder="\u307f\u3069\u308a\u3044\u308d"></textarea>
+        </div>
+        <div>
+          <p>Output</p>
+          <textarea class="form-control" id="unicode-unescape-output" style="height: 200px" placeholder="みどりいろ" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Created by <a href="http://twitter.com/gimenete">@gimenete</a></p>
+      </div>
+
+    </div>
+
+    <script src="dist/js/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <!-- <script src="dist/js/sweet-alert.min.js"></script> -->
+    <!-- <script src="dist/js/select2.min.js"></script> -->
+    <!-- <script src="dist/js/levenshtein.js"></script> -->
+    <script type="text/javascript" src="dist/js/markdown_dom_parser.js"></script>
+    <script type="text/javascript" src="dist/js/html2markdown.js"></script>
+    <script>
+      // string length
+      $('#string-length-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          $('#string-length-output').val(String(val.length))
+        } catch(e) {
+          $('#string-length-output').val(e.message)
+        }
+      })
+
+      // pretty json
+      $('#pretty-json-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          $('#pretty-json-output').val(JSON.stringify(JSON.parse(val), null, 2))
+        } catch(e) {
+          $('#pretty-json-output').val(e.message)
+        }
+      })
+
+      // uri encode
+      $('#uri-encode-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          $('#uri-encode-output').val(encodeURI(val))
+        } catch(e) {
+          $('#uri-encode-output').val(e.message)
+        }
+      })
+
+      // uri decode
+      $('#uri-decode-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          $('#uri-decode-output').val(decodeURI(val))
+        } catch(e) {
+          $('#uri-decode-output').val(e.message)
+        }
+      })
+
+      // uri component encode
+      $('#uri-component-encode-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          $('#uri-component-encode-output').val(encodeURIComponent(val))
+        } catch(e) {
+          $('#uri-component-encode-output').val(e.message)
+        }
+      })
+
+      // uri component decode
+      $('#uri-component-decode-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          $('#uri-component-decode-output').val(decodeURIComponent(val))
+        } catch(e) {
+          $('#uri-component-decode-output').val(e.message)
+        }
+      })
+
+      // html escape
+      $('#html-escape-input').on('input', function() {
+        // http://stackoverflow.com/a/12034334
+        var entityMap = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': '&quot;',
+          "'": '&#39;',
+          "/": '&#x2F;'
+        };
+
+        function escapeHtml(string) {
+          return String(string).replace(/[&<>"'\/]/g, function (s) {
+            return entityMap[s];
+          });
+        }
+
+        var val = $(this).val()
+        try {
+          $('#html-escape-output').val(escapeHtml(val))
+        } catch(e) {
+          $('#html-escape-output').val(e.message)
+        }
+      })
+
+      // html unescape
+      $('#html-unescape-input').on('input', function() {
+        // http://stackoverflow.com/a/1912522
+        function htmlDecode(input){
+          var e = document.createElement('div');
+          e.innerHTML = input;
+          return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+        }
+
+        var val = $(this).val()
+        try {
+          $('#html-unescape-output').val(htmlDecode(val))
+        } catch(e) {
+          $('#html-unescape-output').val(e.message)
+        }
+      })
+
+      // querystring encode
+      $('#querystring-encode-input').on('input', function() {
+        function querystringEncode(value) {
+          var obj = JSON.parse(value)
+          var arr = []
+          for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              arr.push(key+'='+encodeURIComponent(obj[key]))
+            }
+          }
+          return arr.join('&')
+        }
+        
+        var val = $(this).val()
+        try {
+          $('#querystring-encode-output').val(querystringEncode(val))
+        } catch(e) {
+          $('#querystring-encode-output').val(e.message)
+        }
+      })
+
+      // querystring decode
+      $('#querystring-decode-input').on('input', function() {
+        function querystringDecode(value) {
+          var arr = value.split('&')
+          var obj = {}
+          arr.forEach(function(pair) {
+            if (!pair) return
+            var i = pair.indexOf('=')
+            if (i > 0) {
+              obj[pair.substring(0, i)] = decodeURIComponent(pair.substring(i+1))
+            } else {
+              obj[pair] = ''
+            }
+          })
+          return JSON.stringify(obj, null, 2)
+        }
+        
+        var val = $(this).val()
+        try {
+          $('#querystring-decode-output').val(querystringDecode(val))
+        } catch(e) {
+          $('#querystring-decode-output').val(e.message)
+        }
+      })
+
+      // regex
+      function updateRegex() {
+        try {
+          var re = new RegExp($('#regex-regex').val(), $('#regex-flags').val())
+          var val = $('#regex-input').val()
+          var arr = val.match(re)
+          $('#regex-output').val(JSON.stringify(arr, null, 2))
+        } catch(e) {
+          $('#regex-output').val(e.message)
+          console.log(e)
+        }
+      }
+      $('#regex-regex').on('input', updateRegex)
+      $('#regex-input').on('input', updateRegex)
+      $('#regex-flags').on('input', updateRegex)
+
+      // unicode escape
+      $('#unicode-escape-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          // http://stackoverflow.com/a/21014788
+          val = escape(val).replace(/%u([A-F0-9]{4})|%([A-F0-9]{2})/g, function(_, u, x) { return "\\u" + (u || '00' + x).toLowerCase() })
+          $('#unicode-escape-output').val(val)
+        } catch(e) {
+          $('#unicode-escape-output').val(e.message)
+        }
+      })
+
+      // unicode unescape
+      $('#unicode-unescape-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          val = val.replace(/\\u([\d\w]{4})/gi, function(match, group) {
+            return String.fromCharCode(parseInt(group, 16))
+          })
+          $('#unicode-unescape-output').val(val)
+        } catch(e) {
+          $('#unicode-unescape-output').val(e.message)
+        }
+      })
+
+      // html 2 markdown
+      $('#html2markdown-input').on('input', function() {
+        var val = $(this).val()
+        try {
+          $('#html2markdown-output').val(html2markdown(val))
+        } catch(e) {
+          $('#html2markdown-output').val(e.message)
+        }
+      })
+
+      $('#html2jade-input').on('input', function() {
+        var e = document.createElement('div')
+        e.innerHTML = $(this).val()
+
+        var output = ''
+        function printChilNodes(nodes, indentation) {
+          for (var j = 0; j < nodes.length; j++) {
+            var node = nodes[j]
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              var nodestr = ''
+              var id = node.getAttribute('id')
+              if (id) {
+                nodestr += '#'+id
+              }
+              var classes = node.classList
+              if (classes) {
+                for (var i = 0; i < classes.length; i++) {
+                  nodestr += '.'+classes[i]
+                }
+              }
+              if (node.hasAttributes()) {
+                var attrs = node.attributes
+                var attributes = []
+                for (var k = 0; k < attrs.length; k++) {
+                  var name = attrs[k].name
+                  if (name === 'id' || name === 'class') continue
+                  var value = attrs[k].value
+                  if (value.trim().length === 0) {
+                    attributes.push(name)
+                  } else {
+                    value = value.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')
+                    var quotes = '"'
+                    if (value.indexOf('"') < value.indexOf("'")) {
+                      value = value.replace(/"/g, '&quot;')
+                    } else {
+                      quotes = "'"
+                      value = value.replace(/'/g, '&#39;')
+                    }
+                    attributes.push(name+'='+quotes+value+quotes)
+                  }
+                }
+                if (attributes.length > 0) {
+                  nodestr += '('+attributes.join(', ')+')'
+                }
+              }
+              if (nodestr.length === 0 || node.nodeName !== 'DIV') {
+                nodestr = node.nodeName.toLowerCase() + nodestr
+              }
+              if (node.childNodes.length === 1
+                && node.childNodes[0].nodeType === Node.TEXT_NODE) {
+
+                var value = node.childNodes[0].nodeValue
+                var tagName = node.nodeName
+                if (['SCRIPT', 'PRE', 'STYLE'].indexOf(tagName) === -1) {
+                  value = value.trim()
+                }
+                var lines = value.split('\n')
+                if (lines.length === 1) {
+                  output += indentation + nodestr+' '+value+'\n'
+                } else {
+                  output += indentation + nodestr+'.\n'
+                  lines.forEach(function(line) {
+                    output += indentation+'  '+line+'\n'
+                  })
+                }
+              } else {
+                output += indentation + nodestr+'\n'
+                printChilNodes(node.childNodes, indentation+'  ')
+              }
+            } else if (node.nodeType === Node.TEXT_NODE) {
+              var lines = node.nodeValue.split('\n')
+              lines.forEach(function(line) {
+                if (line.trim().length > 0) {
+                  output += indentation + '| ' + line.trim()+'\n'
+                }
+              })
+            } else if (node.nodeType === Node.COMMENT_NODE) {
+              var lines = node.nodeValue.split('\n')
+              lines.forEach(function(line) {
+                if (line.trim().length > 0) {
+                  output += indentation + '// ' + line.trim()+'\n'
+                }
+              })
+            }
+          }
+        }
+
+        printChilNodes(e.childNodes, '')
+        $('#html2jade-output').val(output)
+      })
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dev Toolbelt | Dates</title>
+
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/jumbotron.css" rel="stylesheet">
+    <!--
+    <link href="dist/css/select2.css" rel="stylesheet">
+    <link href="dist/css/select2-bootstrap.css" rel="stylesheet">
+    <link href="dist/css/sweet-alert.css" rel="stylesheet">
+    -->
+    <style>
+      textarea {
+        font-family: monospace;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right" role="tablist">
+          <li role="presentation"><a href="./index.html">Home</a></li>
+          <li role="presentation"><a href="./strings.html">Strings</a></li>
+          <li role="presentation" class="active"><a href="./dates.html">Dates</a></li>
+          <li role="presentation"><a href="./locations.html">Locations</a></li>
+          <li role="presentation"><a href="./links.html">Links</a></li>
+        </ul>
+        <h3 class="text-muted">Dev Toolbelt</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="input1" class="col-sm-2 control-label">Date 1</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="date-input1" name="input1" placeholder="Write a timestamp or an ISO date">
+                <p class="help-block">Example inputs: <code id="date-now-timestamp"></code>, <code id="date-now-iso-a"></code>, <code id="date-now-iso-b"></code>.</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="input2" class="col-sm-2 control-label">Date 2 (optional)</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="date-input2" name="input2" placeholder="Write a timestamp or an ISO date">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-2">
+          <dl>
+            <dt>Difference (date1 from date2)</dt>
+            <dd><pre><code id="date-difference"></code></pre></dd>
+          </dl>
+          <dl>
+            <dt>ISO8601</dt>
+            <dd><pre><code id="date-ISO8601"></code></pre></dd>
+          </dl>
+          <dl>
+            <dt>From now</dt>
+            <dd><pre><code id="date-from-now"></code></pre></dd>
+          </dl>
+          <dl>
+            <dt>Large format</dt>
+            <dd><pre><code id="date-format-LLLL"></code></pre></dd>
+          </dl>
+          <dl>
+            <dt>Date of month</dt>
+            <dd><pre><code id="date-of-month"></code></pre></dd>
+          </dl>
+          <dl>
+            <dt>Day of the week</dt>
+            <dd><pre><code id="date-day-of-week"></code></pre></dd>
+          </dl>
+          <dl>
+            <dt>Day of year</dt>
+            <dd><pre><code id="date-day-of-year"></code></pre></dd>
+          </dl>
+          <dl>
+            <dt>Week of year</dt>
+            <dd><pre><code id="date-week-of-year"></code></pre></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Created by <a href="http://twitter.com/gimenete">@gimenete</a></p>
+      </div>
+
+    </div>
+
+    <script src="dist/js/jquery.min.js"></script>
+    <!-- <script src="dist/js/bootstrap.min.js"></script> -->
+    <!-- <script src="dist/js/sweet-alert.min.js"></script> -->
+    <!-- <script src="dist/js/select2.min.js"></script> -->
+    <!-- <script src="dist/js/levenshtein.js"></script> -->
+    <script src="dist/js/moment.min.js"></script>
+    <script>
+      function update() {
+        var val1 = $('#date-input1').val()
+        var val2 = $('#date-input2').val()
+        val1 = (val1 == +val1) ? +val1 : val1
+        val2 = (val2 == +val2) ? +val2 : val2
+        var date1 = moment(val1)
+        var date2 = moment(val2)
+        $('#date-ISO8601').text(date1.format()+'\n'+(val2 ? date2.format() : ''))
+        $('#date-from-now').text(date1.fromNow()+'\n'+(val2 ? date2.fromNow() : ''))
+        $('#date-format-LLLL').text(date1.format('LLLL')+'\n'+(val2 ? date2.format('LLLL') : ''))
+        if (val2) {
+          $('#date-difference').closest('dl').show()
+          $('#date-difference').text(date1.from(date2))
+        } else {
+          $('#date-difference').closest('dl').hide()
+          $('#date-difference').text('')
+        }
+        $('#date-of-month').text(date1.date()+'\n'+(val2 ? date2.date() : ''))
+        $('#date-day-of-week').text(date1.day()+'\n'+(val2 ? date2.day() : ''))
+        $('#date-day-of-year').text(date1.dayOfYear()+'\n'+(val2 ? date2.dayOfYear() : ''))
+        $('#date-week-of-year').text(date1.week()+'\n'+(val2 ? date2.week() : ''))
+      }
+      $('#date-input1').on('input', update)
+      $('#date-input2').on('input', update)
+      var now = moment()
+      $('#date-now-timestamp').text(now.valueOf())
+      $('#date-now-iso-a').text(now.format('YYYY-MM-DDTHH:mm:SS'))
+      $('#date-now-iso-b').text(now.format('YYYY-MM-DD'))
+    </script>
+  </body>
+</html>

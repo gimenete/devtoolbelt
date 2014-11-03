@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dev Toolbelt | Links</title>
+
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/jumbotron.css" rel="stylesheet">
+    <link href="dist/css/select2.css" rel="stylesheet">
+    <link href="dist/css/select2-bootstrap.css" rel="stylesheet">
+    <link href="dist/css/sweet-alert.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right" role="tablist">
+          <li role="presentation"><a href="./index.html">Home</a></li>
+          <li role="presentation"><a href="./strings.html">Strings</a></li>
+          <li role="presentation"><a href="./dates.html">Dates</a></li>
+          <li role="presentation"><a href="./locations.html">Locations</a></li>
+          <li role="presentation" class="active"><a href="./links.html">Links</a></li>
+        </ul>
+        <h3 class="text-muted">Dev Toolbelt</h3>
+      </div>
+
+      <p>There are a bunch of links I need to visit every hour and I need to open them quickly.
+      So I created this page. It stores links in <code>localStorage</code> and it provides
+      fast autocompletion. Use this page as hompage in your browser and everytime you open
+      a new window or tab you will have these links at your fingerprints.</p>
+
+      <div class="jumbotron">
+        <input type="text" id="search-link" style="width: 300px">
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <form class="form-inline" role="form" id="add-link">
+            <div class="form-group">
+              <label class="sr-only" for="title">Title</label>
+              <input type="text" class="form-control" placeholder="Title" id="add-link-title" style="width: 300px">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="url">URL</label>
+              <input type="url" class="form-control" placeholder="URL" id="add-link-url" style="width: 300px">
+            </div>
+            <button type="submit" class="btn btn-default">Add link</button>
+          </form>
+          <p class="help-block">Examples: "<em>project</em> issues", "<em>project</em> wiki", "<em>project</em> crashlytics",...</p>
+        </div>
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-12" id="links">
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Created by <a href="http://twitter.com/gimenete">@gimenete</a></p>
+      </div>
+
+    </div>
+
+    <script src="dist/js/jquery.min.js"></script>
+    <!-- <script src="dist/js/bootstrap.min.js"></script> -->
+    <!-- <script src="dist/js/sweet-alert.min.js"></script> -->
+    <script src="dist/js/select2.min.js"></script>
+    <script src="dist/js/levenshtein.js"></script>
+    <script>
+      var links = []
+      try {
+        links = JSON.parse(localStorage['links'])
+      } catch(e) {}
+      links.forEach(function(link) {
+        addLink(link)
+      })
+
+      $('#search-link').select2({
+        placeholder: 'Search...',
+        query: function(query) {
+          var all = links.map(function(link) {
+            link.distance = new Levenshtein(link.text, query.term).distance
+            return link
+          })
+          all.sort(function(a, b) {
+            return a.distance - b.distance
+          })
+          query.callback({results: all})
+        }
+      })
+      $('#search-link').select2('open')
+      $('#search-link').on('change', function(item) {
+        document.location.href = item.val
+      })
+
+      $('#add-link').on('submit', function(e) {
+        e.preventDefault()
+
+        var link = {
+          id: $('#add-link-url').val(),
+          text: $('#add-link-title').val(),
+        }
+        links.push(link)
+        localStorage['links'] = JSON.stringify(links)
+        addLink(link)
+        $(this)[0].reset()
+        $('#add-link-title').focus()
+      })
+
+      function addLink(link) {
+        var p = $('<p>')
+        var h4 = $('<h4>').text(link.text+' ')
+        var small = $('<small>')
+        p.append($('<a>').text(link.id)).attr('url', link.url)
+        small.append($('<a>').attr('href', '#').attr('class', 'remove glyphicon glyphicon-remove').attr('data-id', link.id))
+        h4.append(small)
+        $('#links').prepend($('<div>').append(h4).append(p))
+      }
+
+      $('#links').on('click', 'a.remove', function(e) {
+        e.preventDefault()
+        var id = $(this).attr('data-id')
+        var index
+        links.forEach(function(link, i) {
+          if (link.id === id) {
+            index = i
+          }
+        })
+        delete links[index]
+        localStorage['links'] = JSON.stringify(links)
+        $(this).closest('div').remove()
+      })
+    </script>
+  </body>
+</html>
