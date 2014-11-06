@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dev Toolbelt | Crypto</title>
+
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/jumbotron.css" rel="stylesheet">
+    <!--
+    <link href="dist/css/select2.css" rel="stylesheet">
+    <link href="dist/css/select2-bootstrap.css" rel="stylesheet">
+    <link href="dist/css/sweet-alert.css" rel="stylesheet">
+    -->
+    <style>
+      input[type=text], textarea {
+        font-family: monospace;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <a href="https://github.com/gimenete/devtoolbelt"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right" role="tablist">
+          <li role="presentation"><a href="./index.html">Home</a></li>
+          <li role="presentation"><a href="./strings.html">Strings</a></li>
+          <li role="presentation"><a href="./dates.html">Dates</a></li>
+          <li role="presentation"><a href="./locations.html">Locations</a></li>
+          <li role="presentation" class="active"><a href="./crypto.html">Crypto</a></li>
+          <li role="presentation"><a href="./links.html">Links</a></li>
+        </ul>
+        <h3 class="text-muted">Dev Toolbelt</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#encoding" aria-expanded="false" aria-controls="encoding">
+          Encoding
+        </a>
+      </h4>
+    </div>
+    <div id="encoding" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Input encoding</label>
+            <div class="col-sm-9">
+              <select id="encoding-input-algorithm">
+                <option value="utf8">UTF8</option>
+                <option value="hex">Hexadecimal</option>
+                <option value="base64">Base64</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Input</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" id="encoding-input" style="height: 200px" placeholder="hello world"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Output encoding</label>
+            <div class="col-sm-9">
+              <select id="encoding-output-algorithm">
+                <option value="utf8">UTF8</option>
+                <option value="hex">Hexadecimal</option>
+                <option value="base64">Base64</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Output</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" id="encoding-output" style="height: 200px" placeholder="hello world" readonly></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#hash" aria-expanded="false" aria-controls="hash">
+          Hash
+        </a>
+      </h4>
+    </div>
+    <div id="hash" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Algorithm</label>
+            <div class="col-sm-10">
+              <select id="hash-algorithm">
+                <option value="sha1">SHA1</option>
+                <option value="sha256">SHA256</option>
+                <option value="sha384">SHA384</option>
+                <option value="sha512">SHA512</option>
+                <option value="md5">MD5</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="hash-input" style="height: 200px" placeholder="hello world"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="hash-output" placeholder="2aae6c35c94fcfb415dbe95f408b9ce91ee846ed" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#hmac" aria-expanded="false" aria-controls="hmac">
+          HMAC
+        </a>
+      </h4>
+    </div>
+    <div id="hmac" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Algorithm</label>
+            <div class="col-sm-10">
+              <select id="hmac-algorithm">
+                <option value="sha1">SHA1</option>
+                <option value="sha256">SHA256</option>
+                <option value="sha384">SHA384</option>
+                <option value="sha512">SHA512</option>
+                <option value="md5">MD5</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Key</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="hmac-key" placeholder="key">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Input</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="hmac-input" style="height: 200px" placeholder="hello world"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Output</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="hmac-output" placeholder="34dd234b92683593560528f6193ea68c8005f615" readonly>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Created by <a href="http://twitter.com/gimenete">@gimenete</a></p>
+      </div>
+
+    </div>
+
+    <script src="dist/js/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <!-- <script src="dist/js/sweet-alert.min.js"></script> -->
+    <!-- <script src="dist/js/select2.min.js"></script> -->
+    <!-- <script src="dist/js/levenshtein.js"></script> -->
+    <script src="./dist/js/forge.min.js"></script>
+    <script>
+      function updateEncoding() {
+        var val = $('#encoding-input').val()
+        var inputAlgorithm = $('#encoding-input-algorithm').val()
+        var outputAlgorithm = $('#encoding-output-algorithm').val()
+        if (inputAlgorithm === 'hex') {
+          val = forge.util.hexToBytes(val)
+        } else if (inputAlgorithm === 'base64') {
+          val = forge.util.decode64(val)
+        }
+        var output, buff = forge.util.createBuffer(val)
+        if (outputAlgorithm === 'hex') {
+          output = buff.toHex()
+        } else if (outputAlgorithm === 'base64') {
+          output = forge.util.encode64(buff.getBytes())
+        } else {
+          output = forge.util.decodeUtf8(buff)
+        }
+        $('#encoding-output').val(output)
+      }
+      $('#encoding-input').on('input', updateEncoding)
+      $('#encoding-input-algorithm').on('input', updateEncoding)
+      $('#encoding-output-algorithm').on('input', updateEncoding)
+
+      function updateHash() {
+        var val = $('#hash-input').val()
+        var algorithm = $('#hash-algorithm').val()
+        var md = forge.md[algorithm].create()
+        md.update(val)
+        $('#hash-output').val(md.digest().toHex())
+      }
+      $('#hash-algorithm').on('change', updateHash)
+      $('#hash-input').on('input', updateHash)
+
+      function updateHmac() {
+        var val = $('#hmac-input').val()
+        var algorithm = $('#hmac-algorithm').val()
+        var hmac = forge.hmac.create()
+        hmac.start(algorithm, $('#hmac-key').val())
+        hmac.update(val)
+        $('#hmac-output').val(hmac.digest().toHex())
+      }
+      $('#hmac-algorithm').on('change', updateHmac)
+      $('#hmac-key').on('input', updateHmac)
+      $('#hmac-input').on('input', updateHmac)
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-56347902-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
