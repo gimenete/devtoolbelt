@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dev Toolbelt | Dates</title>
+    <title>Dev Toolbelt | Colors</title>
 
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/jumbotron.css" rel="stylesheet">
@@ -17,7 +17,7 @@
     <link href="dist/css/sweet-alert.css" rel="stylesheet">
     -->
     <style>
-      textarea {
+      input[type=text], textarea {
         font-family: monospace;
       }
     </style>
@@ -32,10 +32,10 @@
         <ul class="nav nav-pills pull-right" role="tablist">
           <li role="presentation"><a href="./index.html">Home</a></li>
           <li role="presentation"><a href="./strings.html">Strings</a></li>
-          <li role="presentation" class="active"><a href="./dates.html">Dates</a></li>
+          <li role="presentation"><a href="./dates.html">Dates</a></li>
           <li role="presentation"><a href="./locations.html">Locations</a></li>
           <li role="presentation"><a href="./crypto.html">Crypto</a></li>
-          <li role="presentation"><a href="./colors.html">Colors</a></li>
+          <li role="presentation" class="active"><a href="./colors.html">Colors</a></li>
           <li role="presentation"><a href="./links.html">Links</a></li>
         </ul>
         <h3 class="text-muted">Dev Toolbelt</h3>
@@ -45,16 +45,10 @@
         <div class="col-lg-12">
           <form class="form-horizontal" role="form">
             <div class="form-group">
-              <label for="input1" class="col-sm-2 control-label">Date 1</label>
+              <label for="input1" class="col-sm-2 control-label">CSS Color</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="date-input1" name="input1" placeholder="Write a timestamp or an ISO date">
-                <p class="help-block">Example inputs: <code id="date-now-timestamp"></code>, <code id="date-now-iso-a"></code>, <code id="date-now-iso-b"></code>.</p>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="input2" class="col-sm-2 control-label">Date 2 (optional)</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="date-input2" name="input2" placeholder="Write a timestamp or an ISO date">
+                <input type="text" class="form-control" id="color-input" name="input1" placeholder="Write CSS color. Also supports hsv() and cmyk()">
+                <p class="help-block">Example inputs: <code>#fff</code>, <code>red</code>, <code>rgb(0, 0, 255)</code>.</p>
               </div>
             </div>
           </form>
@@ -63,36 +57,40 @@
       <div class="row">
         <div class="col-lg-10 col-lg-offset-2">
           <dl>
-            <dt>Difference (date1 from date2)</dt>
-            <dd><pre><code id="date-difference"></code></pre></dd>
+            <dt>CMYK</dt>
+            <dd><pre><code id="color-cmyk"></code></pre></dd>
           </dl>
           <dl>
-            <dt>ISO8601</dt>
-            <dd><pre><code id="date-ISO8601"></code></pre></dd>
+            <dt>CMYKA</dt>
+            <dd><pre><code id="color-cmyka"></code></pre></dd>
           </dl>
           <dl>
-            <dt>From now</dt>
-            <dd><pre><code id="date-from-now"></code></pre></dd>
+            <dt>HEX</dt>
+            <dd><pre><code id="color-hex"></code></pre></dd>
           </dl>
           <dl>
-            <dt>Large format</dt>
-            <dd><pre><code id="date-format-LLLL"></code></pre></dd>
+            <dt>HSL</dt>
+            <dd><pre><code id="color-hsl"></code></pre></dd>
           </dl>
           <dl>
-            <dt>Date of month</dt>
-            <dd><pre><code id="date-of-month"></code></pre></dd>
+            <dt>HSLA</dt>
+            <dd><pre><code id="color-hsla"></code></pre></dd>
           </dl>
           <dl>
-            <dt>Day of the week</dt>
-            <dd><pre><code id="date-day-of-week"></code></pre></dd>
+            <dt>HSV</dt>
+            <dd><pre><code id="color-hsv"></code></pre></dd>
           </dl>
           <dl>
-            <dt>Day of year</dt>
-            <dd><pre><code id="date-day-of-year"></code></pre></dd>
+            <dt>HSVA</dt>
+            <dd><pre><code id="color-hsva"></code></pre></dd>
           </dl>
           <dl>
-            <dt>Week of year</dt>
-            <dd><pre><code id="date-week-of-year"></code></pre></dd>
+            <dt>RGB</dt>
+            <dd><pre><code id="color-rgb"></code></pre></dd>
+          </dl>
+          <dl>
+            <dt>RGBA</dt>
+            <dd><pre><code id="color-rgba"></code></pre></dd>
           </dl>
         </div>
       </div>
@@ -108,36 +106,33 @@
     <!-- <script src="dist/js/sweet-alert.min.js"></script> -->
     <!-- <script src="dist/js/select2.min.js"></script> -->
     <!-- <script src="dist/js/levenshtein.js"></script> -->
-    <script src="dist/js/moment.min.js"></script>
+    <script src="dist/js/color-convert-0.5.1.min.js"></script>
+    <script src="dist/js/parse-color.js"></script>
     <script>
-      function update() {
-        var val1 = $('#date-input1').val()
-        var val2 = $('#date-input2').val()
-        val1 = (val1 == +val1) ? +val1 : val1
-        val2 = (val2 == +val2) ? +val2 : val2
-        var date1 = moment(val1)
-        var date2 = moment(val2)
-        $('#date-ISO8601').text(date1.format()+'\n'+(val2 ? date2.format() : ''))
-        $('#date-from-now').text(date1.fromNow()+'\n'+(val2 ? date2.fromNow() : ''))
-        $('#date-format-LLLL').text(date1.format('LLLL')+'\n'+(val2 ? date2.format('LLLL') : ''))
-        if (val2) {
-          $('#date-difference').closest('dl').show()
-          $('#date-difference').text(date1.from(date2))
+      $('#color-input').on('input', function() {
+        var info = parseColor($(this).val())
+        if (!info.cmyk) {
+          $('#color-cmyk').text('')
+          $('#color-cmyka').text('')
+          $('#color-hex').text('')
+          $('#color-hsl').text('')
+          $('#color-hsla').text('')
+          $('#color-hsv').text('')
+          $('#color-hsva').text('')
+          $('#color-rgb').text('')
+          $('#color-rgba').text('')
         } else {
-          $('#date-difference').closest('dl').hide()
-          $('#date-difference').text('')
+          $('#color-cmyk').text('cmyk('+info.cmyk+')')
+          $('#color-cmyka').text('cmyka('+info.cmyka+')')
+          $('#color-hex').text(info.hex)
+          $('#color-hsl').text('hsl('+info.hsl+')')
+          $('#color-hsla').text('hsla('+info.hsla+')')
+          $('#color-hsv').text('hsv('+info.hsv+')')
+          $('#color-hsva').text('hsva('+info.hsva+')')
+          $('#color-rgb').text('rgb('+info.rgb+')')
+          $('#color-rgba').text('rgba('+info.rgba+')')
         }
-        $('#date-of-month').text(date1.date()+'\n'+(val2 ? date2.date() : ''))
-        $('#date-day-of-week').text(date1.day()+'\n'+(val2 ? date2.day() : ''))
-        $('#date-day-of-year').text(date1.dayOfYear()+'\n'+(val2 ? date2.dayOfYear() : ''))
-        $('#date-week-of-year').text(date1.week()+'\n'+(val2 ? date2.week() : ''))
-      }
-      $('#date-input1').on('input', update)
-      $('#date-input2').on('input', update)
-      var now = moment()
-      $('#date-now-timestamp').text(now.valueOf())
-      $('#date-now-iso-a').text(now.format('YYYY-MM-DDTHH:mm:SS'))
-      $('#date-now-iso-b').text(now.format('YYYY-MM-DD'))
+      })
     </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
