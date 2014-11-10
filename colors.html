@@ -57,6 +57,10 @@
       <div class="row">
         <div class="col-lg-10 col-lg-offset-2">
           <dl>
+            <dt>Sample</dt>
+            <dd><div style="padding: 20px; border: 1px solid #ccc" id="color-sample"></div></dd>
+          </dl>
+          <dl>
             <dt>CMYK</dt>
             <dd><pre><code id="color-cmyk"></code></pre></dd>
           </dl>
@@ -121,6 +125,7 @@
           $('#color-hsva').text('')
           $('#color-rgb').text('')
           $('#color-rgba').text('')
+          $('#color-sample').css('background-color', 'white')
         } else {
           $('#color-cmyk').text('cmyk('+info.cmyk+')')
           $('#color-cmyka').text('cmyka('+info.cmyka+')')
@@ -131,6 +136,7 @@
           $('#color-hsva').text('hsva('+info.hsva+')')
           $('#color-rgb').text('rgb('+info.rgb+')')
           $('#color-rgba').text('rgba('+info.rgba+')')
+          $('#color-sample').css('background-color', info.hex)
         }
       })
     </script>
